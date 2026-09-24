@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Happy Birthday For You! 🎂✨</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Particle Effects -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- Floating Music Widget -->
+  <div class="music-widget" id="music-widget" title="Putar / Jeda Musik">
+    <span class="music-disc">🎵</span>
+    <div class="music-bars">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <!-- =========================================
+       1. LOCKSCREEN OVERLAY (SANDI: 923248)
+       ========================================= -->
+  <div class="lockscreen-overlay" id="lockscreen">
+    <div class="lock-card">
+      <div class="lock-icon-wrap">
+        <span>🔐</span>
+      </div>
+      <h2>Pesan Terkunci</h2>
+      <p>Ada kejutan spesial yang menunggumu. Masukkan sandi rahasia untuk membuka!</p>
+      
+      <!-- Dots Indicator -->
+      <div class="passcode-display">
+        <div class="passcode-dot"></div>
+        <div class="passcode-dot"></div>
+        <div class="passcode-dot"></div>
+        <div class="passcode-dot"></div>
+        <div class="passcode-dot"></div>
+        <div class="passcode-dot"></div>
+      </div>
+
+      <!-- Keypad -->
+      <div class="keypad">
+        <button class="key-btn" data-key="1">1</button>
+        <button class="key-btn" data-key="2">2</button>
+        <button class="key-btn" data-key="3">3</button>
+        <button class="key-btn" data-key="4">4</button>
+        <button class="key-btn" data-key="5">5</button>
+        <button class="key-btn" data-key="6">6</button>
+        <button class="key-btn" data-key="7">7</button>
+        <button class="key-btn" data-key="8">8</button>
+        <button class="key-btn" data-key="9">9</button>
+        <button class="key-btn action-btn" data-key="clear">✕</button>
+        <button class="key-btn" data-key="0">0</button>
+        <button class="key-btn action-btn" data-key="backspace">⌫</button>
+      </div>
+
+      <div class="passcode-error-msg" id="passcode-error"></div>
+
+      <!-- Interactive Hint Toggle -->
+      <div class="hint-container">
+        <button type="button" class="hint-toggle-btn" id="hint-toggle-btn">
+          💡 Butuh Petunjuk Sandi? Klik di sini
+        </button>
+        <div class="hint-reveal-box" id="hint-reveal-box">
+          <p class="hint-label">Kode rahasia spesial untukmu:</p>
+          <div class="hint-code-display">
+            <span class="hint-digit">9</span>
+            <span class="hint-digit">2</span>
+            <span class="hint-digit">3</span>
+            <span class="hint-digit">2</span>
+            <span class="hint-digit">4</span>
+            <span class="hint-digit">8</span>
+          </div>
+          <button type="button" class="btn-auto-fill" id="btn-auto-fill">
+            ✨ Masukkan Otomatis
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================
+       2. MAIN BIRTHDAY CONTENT
+       ========================================= -->
+  <main class="main-wrapper">
+    
+    <!-- Hero Greeting Section -->
+    <section class="glass-section hero-section">
+      <div class="sparkle-tag">✨ SPECIAL DAY FOR SPECIAL PERSON ✨</div>
+      <h1 class="hero-title">Happy Birthday, <br><span class="recipient-name-target recipient-highlight">Bidadari Cantik</span>! 🎂</h1>
+      <p class="hero-subtitle">
+        Selamat bertambah usia! Semoga hari ini menjadi awal dari babak baru kehidupanmu yang jauh lebih indah dan penuh kebahagiaan.
+      </p>
+    </section>
+
+    <!-- Interactive Birthday Cake & Candles -->
+    <section class="glass-section cake-section">
+      <h3 style="font-size: 1.3rem; margin-bottom: 8px;">Tiup Lilin & Buat Permohonan 🕯️</h3>
+      <p class="cake-subtext">
+        Pikirkan satu permohonan tulus dari dalam hatimu, lalu sentuh kuenya!
+      </p>
+
+      <div class="cake-wrapper" id="cake" title="Sentuh untuk meniup lilin!">
+        <div class="cake">
+          <div class="candles-group">
+            <div class="candle">
+              <div class="flame"></div>
+              <div class="smoke"></div>
+            </div>
+            <div class="candle">
+              <div class="flame"></div>
+              <div class="smoke"></div>
+            </div>
+            <div class="candle">
+              <div class="flame"></div>
+              <div class="smoke"></div>
+            </div>
+          </div>
+          <div class="cake-top-tier"></div>
+          <div class="cake-bottom-tier"></div>
+          <div class="cake-plate"></div>
+        </div>
+      </div>
+
+      <button class="cake-hint-btn" id="blow-candle-btn">
+        <span>💨 Tiup Lilin Sekarang</span>
+      </button>
+
+      <div class="wish-message" id="wish-message">
+        <h4>🌟 Permohonanmu Sudah Tersampaikan ke Langit! 🌟</h4>
+        <p style="font-size: 0.9rem; margin-top: 5px;">
+          "Semoga segala doa terbaikmu diijabah satu per satu oleh Sang Pencipta. Aamiin."
+        </p>
+      </div>
+    </section>
+
+    <!-- Mystery Gift Box -->
+    <section class="glass-section">
+      <h3 style="font-size: 1.3rem; margin-bottom: 8px;">Ada Kado Buat Kamu! 🎁</h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">
+        Sentuh kotak kado di bawah ini untuk membukanya
+      </p>
+
+      <div class="gift-container">
+        <div class="gift-box" id="gift-box" title="Klik untuk membuka kado!">
+          <div class="gift-lid"></div>
+          <div class="gift-body">
+            <div class="gift-ribbon-v"></div>
+            <div class="gift-ribbon-h"></div>
+          </div>
+        </div>
+
+        <div class="gift-reveal-card" id="gift-reveal">
+          <div style="font-size: 2.2rem; margin-bottom: 8px;">🎉💖💐</div>
+          <h4 style="color: var(--accent-gold); font-size: 1.15rem; margin-bottom: 6px;">Kado Terindah Adalah Dirimu Sendiri!</h4>
+          <p style="font-size: 0.88rem; color: #fff; line-height: 1.6;">
+            Kado ini berisi pelukan hangat, doa-doa tulus tanpa henti, dan janji bahwa kamu tidak akan pernah sendirian menghadapi dunia.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Polaroid Memories Gallery -->
+    <section class="glass-section">
+      <h3 style="font-size: 1.3rem; margin-bottom: 6px;">Galeri Kenangan Indah 📸</h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">
+        Momen-momen manis yang selalu bikin tersenyum
+      </p>
+
+      <div class="polaroid-grid">
+        <div class="polaroid-card">
+          <div class="washi-tape"></div>
+          <div class="polaroid-img-wrap">
+            <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?w=500&auto=format&fit=crop&q=80" alt="Birthday Joy" loading="lazy">
+          </div>
+          <div class="polaroid-caption">Senyum Terbaik ✨</div>
+        </div>
+
+        <div class="polaroid-card">
+          <div class="washi-tape"></div>
+          <div class="polaroid-img-wrap">
+            <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=500&auto=format&fit=crop&q=80" alt="Party Vibes" loading="lazy">
+          </div>
+          <div class="polaroid-caption">Hari Penuh Tawa 🎈</div>
+        </div>
+
+        <div class="polaroid-card">
+          <div class="washi-tape"></div>
+          <div class="polaroid-img-wrap">
+            <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=500&auto=format&fit=crop&q=80" alt="Sweet Moments" loading="lazy">
+          </div>
+          <div class="polaroid-caption">Manisnya Harimu 🍰</div>
+        </div>
+
+        <div class="polaroid-card">
+          <div class="washi-tape"></div>
+          <div class="polaroid-img-wrap">
+            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&auto=format&fit=crop&q=80" alt="Glow" loading="lazy">
+          </div>
+          <div class="polaroid-caption">Bersinar Terus 🌟</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sweet Letter Section -->
+    <section class="glass-section">
+      <h3 style="font-size: 1.3rem; margin-bottom: 8px;">Surat Kecil dari Hatiku 💌</h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted);">
+        Dibaca pelan-pelan yaa...
+      </p>
+
+      <div class="letter-box">
+        <div id="typewriter-letter" class="letter-text"></div>
+        <span class="letter-cursor">&nbsp;</span>
+      </div>
+    </section>
+
+    <!-- Reasons Why You're Special -->
+    <section class="glass-section">
+      <h3 style="font-size: 1.3rem; margin-bottom: 8px;">Kenapa Kamu Begitu Spesial? 🌸</h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted);">
+        Sentuh kartunya untuk melihat alasannya
+      </p>
+
+      <div class="reasons-grid">
+        <div class="reason-card">
+          <div class="reason-icon">😊</div>
+          <div class="reason-title">Senyumanmu</div>
+          <div class="reason-desc">Selalu berhasil mencerahkan hari siapapun yang melihatnya.</div>
+        </div>
+
+        <div class="reason-card">
+          <div class="reason-icon">🤍</div>
+          <div class="reason-title">Hati yang Tulus</div>
+          <div class="reason-desc">Kebaikan dan kepedulianmu adalah hal yang paling langka.</div>
+        </div>
+
+        <div class="reason-card">
+          <div class="reason-icon">✨</div>
+          <div class="reason-title">Energi Positif</div>
+          <div class="reason-desc">Berada di dekatmu selalu membawa rasa tenang dan bahagia.</div>
+        </div>
+
+        <div class="reason-card">
+          <div class="reason-icon">🧸</div>
+          <div class="reason-title">Menjadi Dirimu</div>
+          <div class="reason-desc">Kamu unik, hebat, dan berharga persis seperti apa adanya dirimu.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================
+         7. WHATSAPP FEEDBACK (FITUR UTAMA USER)
+         ========================================= -->
+    <section class="glass-section wa-section">
+      <div class="wa-badge">
+        <span>📲 Kirim Pesan Balasan</span>
+      </div>
+      <h3 style="font-size: 1.4rem; margin-bottom: 8px;">Sekarang Giliran Kamu! 💌</h3>
+      <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6;">
+        Tulis pesan balasan, ucapan terima kasih, atau curhatanmu di bawah ini. Begitu kamu klik tombol kirim, pesannya akan langsung masuk ke WhatsApp aku!
+      </p>
+
+      <!-- Quick Chips / Shortcut Balasan -->
+      <div class="chips-container">
+        <button class="chip-btn" data-text="Makasih banyaaak ya! Aku terharu banget baca websitenya 🥺❤️">🥺 Terharu banget</button>
+        <button class="chip-btn" data-text="Aamiin ya Allah! Makasih banyak ya atas semua doa baiknya 🤲✨">🤲 Aamiin doanya</button>
+        <button class="chip-btn" data-text="Websitenya lucu dan gemas bangeeet! Makasih kejutannya 🥰🎉">🥰 Gemas banget</button>
+        <button class="chip-btn" data-text="Wajib traktir makan nih kita! Kapan ada waktu luang? 🍕😋">🍕 Traktir makan</button>
+      </div>
+
+      <!-- Textarea Pesan -->
+      <div class="wa-textarea-wrapper">
+        <textarea id="wa-message-input" class="wa-textarea" placeholder="Ketik pesan balasanmu di sini yaa..."></textarea>
+      </div>
+
+      <!-- WhatsApp Send Button -->
+      <button id="send-wa-btn" class="wa-send-btn">
+        <svg class="wa-icon" viewBox="0 0 24 24">
+          <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.53 1.771.814 2.791.814 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.766-5.768-5.766zm9.969 5.828c0 5.523-4.477 10-10 10-1.74 0-3.376-.445-4.809-1.229l-5.191 1.359 1.385-5.056c-.886-1.503-1.385-3.251-1.385-5.074 0-5.523 4.477-10 10-10s10 4.477 10 10z"/>
+        </svg>
+        <span>Kirim Balasan ke WhatsApp Aku</span>
+      </button>
+
+      <p style="font-size: 0.75rem; color: rgba(255,255,255,0.45); margin-top: 14px;">
+        Pesan akan otomatis dialihkan ke aplikasi WhatsApp 💬
+      </p>
+    </section>
+
+    <!-- Footer -->
+    <footer style="text-align: center; font-size: 0.8rem; color: rgba(255,255,255,0.4); padding-top: 10px;">
+      Dibuat dengan segenap rasa sayang & doa tulus 💖 ✨
+    </footer>
+
+  </main>
+
+  <!-- Settings Button (Untuk Pemilik Setting Nomor WA & Nama) -->
+  <button class="settings-trigger" id="settings-btn" title="Pengaturan Nomor WA & Nama">
+    ⚙️
+  </button>
+
+  <!-- Settings Modal Backdrop -->
+  <div class="modal-backdrop" id="settings-modal-backdrop">
+    <div class="settings-modal">
+      <h3>⚙️ Pengaturan Website</h3>
+      <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 18px;">
+        Sesuaikan nama penerima dan nomor WhatsApp tujuan agar pesan balasan masuk ke nomormu.
+      </p>
+
+      <div class="form-group">
+        <label for="cfg-name">Nama Yang Berulang Tahun:</label>
+        <input type="text" id="cfg-name" placeholder="Contoh: Salsa / Bidadari Cantik">
+      </div>
+
+      <div class="form-group">
+        <label for="cfg-phone">Nomor WhatsApp Kamu (Awali 62):</label>
+        <input type="text" id="cfg-phone" placeholder="Contoh: 6285200000206">
+      </div>
+
+      <div class="form-group">
+        <label for="cfg-music">Link Lagu MP3 (Opsional):</label>
+        <input type="text" id="cfg-music" placeholder="Kosongkan untuk pakai musik bawaan">
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-cancel" id="modal-close-btn">Batal</button>
+        <button class="btn-primary" id="modal-save-btn">Simpan Pengaturan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="audio.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
