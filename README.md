@@ -81,6 +81,8 @@ Buka file `index.html`, cari bagian `<!-- Polaroid Memories Gallery -->`. Kamu b
 1. **Buka di Komputer / HP**:
    - Cukup klik dua kali file `index.html` untuk langsung membukanya di browser apa pun (Google Chrome, Safari, Edge).
 2. **Kirim Lewat Internet (Gratis)**:
+
+   coba lagi
    - Kamu bisa mengunggah folder ini ke layanan gratis seperti:
      - [Vercel](https://vercel.com) (Tinggal drag & drop folder)
      - [Netlify Drop](https://app.netlify.com/drop) (Tinggal seret folder ini, link langsung aktif dalam 5 detik!)
